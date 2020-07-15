@@ -114,3 +114,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+AUTH_USER_MODEL = 'home.CustomUser'
+

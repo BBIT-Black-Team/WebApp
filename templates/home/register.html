@@ -1,0 +1,79 @@
+{% extends 'main_base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body_class %}bg-gradient-primary{% endblock %}
+
+{% block content %}
+      <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+              </div>
+              <form class="user" method="post" action="/register">
+                  {% csrf_token %}
+{#                <div class="form-group row">#}
+{#                  <div class="col-sm-6 mb-3 mb-sm-0">#}
+{#                      <label for="first_name"></label><input type="text" class="form-control form-control-user" id="first_name" name="first_name" placeholder="First Name">#}
+{#                  </div>#}
+{#                  <div class="col-sm-6">#}
+{#                      <label for="last_name"></label><input type="text" class="form-control form-control-user" id="last_name" placeholder="Last Name" name="last_name">#}
+{#                  </div>#}
+{#                </div>#}
+                <div class="form-group">
+                    <label for="id_username"></label><input type="text" class="form-control form-control-user" id="id_username" name="username" placeholder="Email Address">
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                      <label for="id_password1"></label><input type="password" class="form-control form-control-user" id="id_password1" name="password1" placeholder="Password">
+                  </div>
+                  <div class="col-sm-6">
+                      <label for="id_password2"></label><input type="password" class="form-control form-control-user" id="id_password2" name="password2" placeholder="Repeat Password">
+                  </div>
+                </div>
+                  {{ form.as_p }}
+                  <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block mt-4">
+{#                <a href="login.html" class="btn btn-primary btn-user btn-block">#}
+{#                  Register Account#}
+{#                </a>#}
+{#                <hr>#}
+{#                <a href="index.html" class="btn btn-google btn-user btn-block">#}
+{#                  <i class="fab fa-google fa-fw"></i> Register with Google#}
+{#                </a>#}
+{#                <a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                  <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook#}
+{#                </a>#}
+              </form>
+              <hr>
+              <div class="text-center">
+                <a class="small" href="forgot-password.html">Forgot Password?</a>
+              </div>
+              <div class="text-center">
+                <a class="small" href="login.html">Already have an account? Login!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block add_css %}
+    <style>
+    .form-control{
+        {#margin-bottom: 1rem;#}
+    }
+    </style>
+{% endblock %}
