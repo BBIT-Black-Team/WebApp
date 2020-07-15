@@ -18,10 +18,27 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for base-->
+    <link href="{% static 'css/main_base.css' %}" rel="stylesheet">
+
     {% block add_css %}{% endblock %}
+
 
 </head>
 <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+{% if messages %}
+  <div class="message-wrapper row m-0 text-center">
+  <div class="col-sm-6 col-sm-offset-3">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} pb-0 " role="alert">
+          <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+{% endif %}
 
 {% block content %}
 {% endblock %}
