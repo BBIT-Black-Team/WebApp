@@ -1,5 +1,5 @@
 {% extends 'main_base.html' %}
-
+{% load static %}
 {% block title %}
     Login
 {% endblock %}
@@ -19,32 +19,40 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user" method="post" action="/register">
+              <form class="user" method="post" id="register-form" action="/register">
                   {% csrf_token %}
-{#                <div class="form-group row">#}
-{#                  <div class="col-sm-6 mb-3 mb-sm-0">#}
-{#                      <label for="first_name"></label><input type="text" class="form-control form-control-user" id="first_name" name="first_name" placeholder="First Name">#}
-{#                  </div>#}
-{#                  <div class="col-sm-6">#}
-{#                      <label for="last_name"></label><input type="text" class="form-control form-control-user" id="last_name" placeholder="Last Name" name="last_name">#}
-{#                  </div>#}
-{#                </div>#}
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                      <label for="id_first_name"></label><input type="text" class="form-control form-control-user" id="id_first_name" name="first_name" placeholder="First Name">
+                    <small class="text-danger d-block error-msg" id="error_first_name"></small>
+
+                  </div>
+                  <div class="col-sm-6">
+                      <label for="id_last_name"></label><input type="text" class="form-control form-control-user" id="id_last_name" placeholder="Last Name" name="last_name">
+                    <small class="text-danger d-block error-msg" id="error_last_name"></small>
+
+                  </div>
+                </div>
                 <div class="form-group">
-                    <label for="id_username"></label><input type="text" class="form-control form-control-user" id="id_username" name="username" placeholder="Email Address">
+                    <label for="id_email"></label><input type="text" class="form-control form-control-user" id="id_email" name="email" placeholder="Email Address">
+                    <small class="text-danger d-block error-msg" id="error_email"></small>
+
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                       <label for="id_password1"></label><input type="password" class="form-control form-control-user" id="id_password1" name="password1" placeholder="Password">
+                      <small class="text-danger d-block error-msg" id="error_password1"></small>
+
                   </div>
                   <div class="col-sm-6">
                       <label for="id_password2"></label><input type="password" class="form-control form-control-user" id="id_password2" name="password2" placeholder="Repeat Password">
+                      <small class="text-danger d-block error-msg" id="error_password2"></small>
                   </div>
                 </div>
-                  {{ form.as_p }}
+                  <div class="d-none" id="form-error">
+                      <h2 class="d-block text-danger text-center error-message">Please Resolve Above Error First Submit.</h2>
+                  </div>
                   <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block mt-4">
-{#                <a href="login.html" class="btn btn-primary btn-user btn-block">#}
-{#                  Register Account#}
-{#                </a>#}
 {#                <hr>#}
 {#                <a href="index.html" class="btn btn-google btn-user btn-block">#}
 {#                  <i class="fab fa-google fa-fw"></i> Register with Google#}
@@ -70,10 +78,28 @@
 
 {% endblock %}
 
+
 {% block add_css %}
     <style>
-    .form-control{
-        {#margin-bottom: 1rem;#}
+    .error-message{
+    font-size: 15px;
     }
+    .error-div{
+        border-color: red !important;
+    }
+    .error-msg{
+        padding-left: 1rem;
+        padding-top: .1rem;
+    }
+    .form-control:focus{
+        border-color: #d1d3e2;
+        box-shadow: none;
+
+    }
+
     </style>
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'home/register.js' %}"></script>
 {% endblock %}

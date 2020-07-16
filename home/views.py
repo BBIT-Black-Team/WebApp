@@ -1,15 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.http import QueryDict
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .forms import CustomUserAuthenticationForm
+from .forms import CustomUserAuthenticationForm, CustomUserCreationForm
 
 
 def login_view(request):
     if request.method == 'POST':
         form = CustomUserAuthenticationForm(request=request, data=request.POST)
-        print('Login', form.is_valid(), form.cleaned_data, request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
@@ -30,25 +27,33 @@ def login_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        print('Here', form.is_valid(), form.cleaned_data , )
+        form = CustomUserCreationForm(request.POST)
 
+        print('Register', form.is_valid(), form.cleaned_data)
+        # form.is_valid()
+        # print('ok', form.cleaned_data.get('password1'), form.cleaned_data.get('password2'))
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f"New account created: {username}")
+            email = form.cleaned_data.get('email')
+            messages.success(request, f"New account created: {email}")
             login(request, user)
             return redirect("/login")
 
         else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+            for key in form.errors:
+                for msg in form.errors[key]:
+                    messages.error(request, msg)
+                    break
+                break
+
+            # for msg in form.error_messages:
+            #     messages.error(request, f"{form.error_messages[msg]}")
 
             return render(request=request,
                           template_name="home/register.html",
                           context={"form": form})
 
-    form = UserCreationForm
+    form = CustomUserCreationForm
     return render(request=request,
                   template_name="home/register.html",
                   context={"form": form})

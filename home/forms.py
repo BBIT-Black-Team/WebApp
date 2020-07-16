@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import forms
 from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy as _
-from .models import CustomUser
 from django import forms
 
 from .models import CustomUser
@@ -51,12 +50,12 @@ class CustomUserAuthenticationForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         # Set the max length and label for the "email" field.
-        # self.email_field = CustomUser._meta.get_field(CustomUser.EMAIL_FIELD)
-        # email_max_length = self.email_field.max_length or 254
-        # self.fields['email'].max_length = email_max_length
-        # self.fields['email'].widget.attrs['maxlength'] = email_max_length
-        # if self.fields['email'].label is None:
-        #     self.fields['email'].label = capfirst(self.email_field.verbose_name)
+        self.email_field = CustomUser._meta.get_field(CustomUser.EMAIL_FIELD)
+        email_max_length = self.email_field.max_length or 254
+        self.fields['email'].max_length = email_max_length
+        self.fields['email'].widget.attrs['maxlength'] = email_max_length
+        if self.fields['email'].label is None:
+            self.fields['email'].label = capfirst(self.email_field.verbose_name)
 
     def clean(self):
         email = self.cleaned_data.get('email')
@@ -97,3 +96,5 @@ class CustomUserAuthenticationForm(forms.Form):
             code='invalid_login',
             params={'email': self.email_field.verbose_name},
         )
+
+
