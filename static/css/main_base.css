@@ -2,7 +2,6 @@
     position: absolute;
     width: 100%;
     justify-content: center;
-    z-index: 99;
 }
 
 .message-wrapper div{
@@ -13,16 +12,17 @@
     -webkit-animation: slideDown 4s .3s 1 ease forwards;
     -moz-transform:    translateY(-50px);
     -moz-animation:    slideDown 4s .3s 1 ease forwards;
+    z-index: 3;
 
 }
 
 /* Animation for Notification */
 @-webkit-keyframes slideDown {
-    0%, 100% { -webkit-transform: translateY(-50px); }
+    0%, 100% { -webkit-transform: translateY(-100px); }
     10%, 90% { -webkit-transform: translateY(0px); }
 }
 @-moz-keyframes slideDown {
-    0%, 100% { -moz-transform: translateY(-50px); }
+    0%, 100% { -moz-transform: translateY(-100px); }
     10%, 90% { -moz-transform: translateY(0px); }
 }
 

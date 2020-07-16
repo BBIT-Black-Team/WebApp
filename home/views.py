@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import CustomUserAuthenticationForm, CustomUserCreationForm
@@ -55,3 +55,9 @@ def register_view(request):
     return render(request=request,
                   template_name="home/register.html",
                   context={"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("login")
