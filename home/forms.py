@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django.forms import forms
 from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy as _

@@ -1,0 +1,14 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block add_css %}
+    <link href="{% static 'home/css/base.css' %}" rel="stylesheet">
+    {% block add_xtra_css %}
+    {% endblock %}
+{% endblock %}
+
+{% block add_js %}
+    <script src="{% static 'home/js/base.js' %}"></script>
+    {% block add_xtra_js %}
+    {% endblock %}
+{% endblock %}

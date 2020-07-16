@@ -1,0 +1,18 @@
+.error-message{
+    font-size: 15px;
+    }
+
+.error-div{
+        border-color: red !important;
+    }
+
+.error-msg{
+        padding-left: 1rem;
+        padding-top: .1rem;
+    }
+
+.form-control:focus{
+        border-color: #d1d3e2;
+        box-shadow: none;
+
+    }

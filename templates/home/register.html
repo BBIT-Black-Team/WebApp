@@ -1,4 +1,4 @@
-{% extends 'main_base.html' %}
+{% extends 'home/base.html' %}
 {% load static %}
 {% block title %}
     Login
@@ -62,11 +62,11 @@
 {#                </a>#}
               </form>
               <hr>
+{#              <div class="text-center">#}
+{#                <a class="small" href="forgot-password.html">Forgot Password?</a>#}
+{#              </div>#}
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
-              </div>
-              <div class="text-center">
-                <a class="small" href="login.html">Already have an account? Login!</a>
+                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
               </div>
             </div>
           </div>
@@ -79,27 +79,6 @@
 {% endblock %}
 
 
-{% block add_css %}
-    <style>
-    .error-message{
-    font-size: 15px;
-    }
-    .error-div{
-        border-color: red !important;
-    }
-    .error-msg{
-        padding-left: 1rem;
-        padding-top: .1rem;
-    }
-    .form-control:focus{
-        border-color: #d1d3e2;
-        box-shadow: none;
-
-    }
-
-    </style>
-{% endblock %}
-
-{% block add_js %}
-    <script src="{% static 'home/register.js' %}"></script>
+{% block add_xtra_js %}
+    <script src="{% static 'home/js/register.js' %}"></script>
 {% endblock %}
