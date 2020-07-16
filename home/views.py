@@ -1,8 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import CustomUserAuthenticationForm, CustomUserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
+
+
+@login_required(login_url='/login')
+def home_view(request):
+    return render(request=request, template_name='home/home.html')
 
 
 def login_view(request):
@@ -15,7 +20,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {email}")
-                return redirect('/login')
+                return redirect('home')
             else:
                 messages.error(request, "Invalid email or password.")
         else:
@@ -29,16 +34,12 @@ def login_view(request):
 def register_view(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
-
-        print('Register', form.is_valid(), form.cleaned_data)
-        # form.is_valid()
-        # print('ok', form.cleaned_data.get('password1'), form.cleaned_data.get('password2'))
         if form.is_valid():
             user = form.save()
             email = form.cleaned_data.get('email')
             messages.success(request, f"New account created: {email}")
             login(request, user)
-            return redirect("/login")
+            return redirect("home")
 
         else:
             for key in form.errors:
@@ -46,10 +47,6 @@ def register_view(request):
                     messages.error(request, msg)
                     break
                 break
-
-            # for msg in form.error_messages:
-            #     messages.error(request, f"{form.error_messages[msg]}")
-
             return render(request=request,
                           template_name="home/register.html",
                           context={"form": form})
