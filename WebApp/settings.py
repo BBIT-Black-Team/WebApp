@@ -1,7 +1,6 @@
 import os
 from django.contrib.messages import constants as messages
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -109,10 +108,16 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
 AUTH_USER_MODEL = 'home.CustomUser'
 
+# DataFlair
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bbit.team.black@gmail.com'
+EMAIL_HOST_PASSWORD = 'black@1234'

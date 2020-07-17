@@ -8,6 +8,7 @@
 
 .error-div{
         border-color: red !important;
+    display: block!important;
     }
 
 .error-msg{

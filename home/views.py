@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import CustomUserAuthenticationForm, CustomUserCreationForm
-
+from .forms import CustomUserAuthenticationForm, FacultyCreationForm, CustomUserCreationForm
+from .models import Faculty, Subject
+from pprint import pprint
 
 @login_required(login_url='/login')
 def home_view(request):
@@ -31,11 +32,16 @@ def login_view(request):
                   context={"form": form})
 
 
-def register_view(request):
+def faculty_register_view(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            faculty = FacultyCreationForm({"user": user, "subjects": request.POST.getlist('subjects')})
+            if faculty.is_valid():
+                faculty.save()
+            faculty.save()
+
             email = form.cleaned_data.get('email')
             messages.success(request, f"New account created: {email}")
             login(request, user)
@@ -44,17 +50,19 @@ def register_view(request):
         else:
             for key in form.errors:
                 for msg in form.errors[key]:
+                    pprint(key)
                     messages.error(request, msg)
                     break
                 break
             return render(request=request,
                           template_name="home/register.html",
-                          context={"form": form})
+                          context={"form": form, "subjects" : Subject.objects.all()})
 
     form = CustomUserCreationForm
+
     return render(request=request,
                   template_name="home/register.html",
-                  context={"form": form})
+                  context={"form": form, "subjects" : Subject.objects.all()})
 
 
 def logout_view(request):

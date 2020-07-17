@@ -22,9 +22,13 @@ $('input[type="submit"]', '#register-form').on('click', (e) => {
     e.preventDefault();
     const { isValid, error} = validate(objectifyForm($('#register-form').serializeArray()), formError);
     dispatchErrors(error);
-    if(isValid) {
+    if(isValid && $('#id_subjects').val().length !== 0) {
+
         $('#register-form').submit();
     }
+    else $('#error_subjects').addClass('error-div');
+
+    if($('#id_subjects').val().length !== 0)$('#error_subjects').removeClass('error-div');
 
 })
 
@@ -66,5 +70,5 @@ const validate = (data, error) => {
 
 }
 
-
+$('select').selectpicker();
 

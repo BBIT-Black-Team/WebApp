@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Subject, Faculty
 
 
 class CustomUserAdmin(UserAdmin):
@@ -25,4 +26,12 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
+class FacultyAdmin(admin.ModelAdmin):
+    list_display = ('user', )
+
+
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Subject)
+admin.site.register(Faculty, FacultyAdmin)
+
+admin.site.unregister(Group)

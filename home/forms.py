@@ -5,13 +5,19 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy as _
 from django import forms
 
-from .models import CustomUser
+from .models import CustomUser, Faculty
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('email', 'first_name', 'last_name')
+
+
+class FacultyCreationForm(forms.ModelForm):
+    class Meta:
+        model = Faculty
+        fields = ('subjects', 'user')
 
 
 class CustomUserChangeForm(UserChangeForm):
