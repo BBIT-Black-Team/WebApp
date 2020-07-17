@@ -51,8 +51,12 @@ class ExamBlock(models.Model):
 class AssessmentDetail(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     total_answer_sheets = models.SmallIntegerField(default=None)
-    first_ans_sheet = models.SmallIntegerField(default=None)
-    last_ans_sheet = models.SmallIntegerField(default=None)
+    first_ans_sheet = models.CharField(max_length=10, default=None)
+    last_ans_sheet = models.CharField(max_length=10, default=None)
+
+    def __str__(self):
+        return self.subject.name
+
 
 
 

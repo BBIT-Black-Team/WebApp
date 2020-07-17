@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, Subject, Faculty
+from .models import CustomUser, Subject, Faculty, AssessmentDetail, ExamBlock
 
 
 class CustomUserAdmin(UserAdmin):
@@ -33,5 +33,11 @@ class FacultyAdmin(admin.ModelAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Subject)
 admin.site.register(Faculty, FacultyAdmin)
+admin.site.register(AssessmentDetail)
+admin.site.register(ExamBlock)
 
 admin.site.unregister(Group)
+
+
+admin.site.site_header = 'Institute Exam Management System'
+admin.site.site_title = 'Institute Exam Management System'
