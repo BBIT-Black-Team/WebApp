@@ -5,7 +5,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy as _
 from django import forms
 
-from .models import CustomUser, Faculty
+
+from .models import CustomUser, Faculty, ExamBlock, AssessmentDetail, PaperChecked
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -19,6 +20,23 @@ class FacultyCreationForm(forms.ModelForm):
         model = Faculty
         fields = ('subjects', 'user')
 
+
+class ExamAddForm(forms.ModelForm):
+    class Meta:
+        model = ExamBlock
+        fields = ('no_of_blocks', 'session', 'date_of_exam')
+
+
+class AssessmentAddForm(forms.ModelForm):
+    class Meta:
+        model = AssessmentDetail
+        fields = ('subject', 'total_answer_sheets', 'first_ans_sheet', 'last_ans_sheet')
+
+
+class AddPaper(forms.ModelForm):
+    class Meta:
+        model = PaperChecked
+        fields = '__all__'
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:

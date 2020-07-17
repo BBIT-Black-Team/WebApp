@@ -321,7 +321,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Assessment Block</h1>
-                    <a href="#" class="btn btn-primary btn-circle btn-md position-absolute" style="top: 0; right: 50px">
+                    <a href="{% url 'assessment_add' %}" class="btn btn-primary btn-circle btn-md position-absolute" style="top: 0; right: 50px">
                     <i class="fab fa fa-plus"></i>
                   </a>
 {#          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>#}
@@ -355,11 +355,11 @@
                   <tbody>
                   {% for i in assessment_details %}
                     <tr>
-                      <td>{{ i.id }}</td>
-                      <td>{{ i.subject }}</td>
-                      <td>{{ i.total_answer_sheets }}</td>
-                      <td>{{ i.first_ans_sheet }}</td>
-                      <td>{{ i.last_ans_sheet }}</td>
+                      <td><a href="{% url 'assessment_edit' i.id %}">{{ forloop.counter }}</a></td>
+                      <td><a href="{% url 'assessment_edit' i.id %}">{{ i.subject }}</a></td>
+                      <td><a href="{% url 'assessment_edit' i.id %}">{{ i.total_answer_sheets }}</a></td>
+                      <td><a href="{% url 'assessment_edit' i.id %}">{{ i.first_ans_sheet }}</a></td>
+                        <td><a href="{% url 'assessment_edit' i.id %}">{{ i.last_ans_sheet }}</a></td>
 
                     </tr>
                   {% endfor %}

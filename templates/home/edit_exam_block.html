@@ -330,28 +330,32 @@
                             <div class="col">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Add New Exam</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">{% if exam %}Edit{% else %}Add New{% endif %} Exam</h1>
                                     </div>
                                     <form class="user" method="post" id="login-form" novalidate >
                                         {% csrf_token %}
 {#                                        {{ form.as_p }}#}
                                         <div class="form-group">
                                             <label for="id_date">Date</label><input type="date" class="form-control form-control-user"
-                                                                                 id="id_email" name="data" aria-describedby="dataHelp"
-                                                                                 placeholder="Date" required>
+                                                                                 id="id_date" name="date_of_exam" aria-describedby="dataHelp"
+                                                                                 placeholder="Date" required  value="{{ exam.date_of_exam|date:"Y-m-d" }}">
 {#                                        <small class="text-danger d-block error-msg" id="error_data"></small>#}
 
                                         </div>
                                         <div class="form-group">
                                             <label for="id_no_of_blocks"></label><input type="text" class="form-control form-control-user"
-                                                                                 id="id_no_of_blocks" name="no_of_blocks" placeholder="No. of Blocks" required>
+                                                                                 id="id_no_of_blocks" name="no_of_blocks" placeholder="No. of Blocks" required value="{{ exam.no_of_blocks }}">
                                             <small class="text-danger d-block error-msg" id="error_no_of_blocks"></small>
 
                                         </div>
-                                                                          <div class="form-group">
-                                            <label for="id_session"></label><input type="text" class="form-control form-control-user"
-                                                                                 id="id_session" name="session" placeholder="Session" required>
-                                            <small class="text-danger d-block error-msg" id="error_session"></small>
+                                        <div class="form-group justify-content-center mt-3" style="text-align: -webkit-center">
+                                                            <select id="id_subjects" class="selectpicker"  data-live-search="true" required  name="session">
+                                              <option value="MORNING" {% if exam.session == "MORNING" %}selected {% endif %}>MORNING</option>
+
+                                              <option value="EVENING" {% if exam.session == "EVENING" %}selected {% endif %}>EVENING</option>
+
+                                    </select>
+                      <small class="text-danger error-msg" style="display: none" id="error_subjects">Select at least One Subject</small>
 
                                         </div>
 {#                                        <div class="form-group">#}
@@ -362,7 +366,7 @@
 {#                                            </div>#}
 {#                                        </div>#}
 
-                                        <input type="submit" class="btn btn-primary btn-user btn-block mt-4" value="Login">
+                                        <input type="submit" class="btn btn-primary btn-user btn-block mt-4" value="Save">
 {#                                        <hr>#}
 {#                                        <a href="index.html" class="btn btn-google btn-user btn-block">#}
 {#                                            <i class="fab fa-google fa-fw"></i> Login with Google#}
@@ -376,7 +380,7 @@
 {#                                        <a class="small" href="forgot-password.html">Forgot Password?</a>#}
 {#                                    </div>#}
                                     <div class="text-center">
-                                        <a class="small" href="{% url 'register' %}">Create an Account!</a>
+                                        <a class="small" href="{% url 'exam_block' %}">View all exams</a>
                                     </div>
                                 </div>
                             </div>
@@ -439,4 +443,11 @@
 
 {% block add_xtra_js %}
     <script src="{% static 'home/js/home.js' %}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+{% endblock %}
+
+
+{% block add_xtra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 {% endblock %}

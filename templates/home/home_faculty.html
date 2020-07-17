@@ -317,16 +317,73 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
+<!-- Begin Page Content -->
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+          <h1 class="h3 mb-2 text-gray-800">Papers</h1>
 
-        </div>
-        <!-- /.container-fluid -->
+          <div class="row">
 
-      </div>
-      <!-- End of Main Content -->
+            <!-- Earnings (Monthly) Card Example -->
+              {% for sub in faculty.assessment.all %}
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ sub.subject }} Paper Left</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ sub.total_answer_sheets }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-book fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              {% endfor %}
+
+
+
+            <!-- Pending Requests Card Example -->
+
+          </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Changed History</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Total Sheets</th>
+                      <th>Checked</th>
+                      <th>Last Edited</th>
+                        <th>Add Entry</th>
+                    </tr>
+                  </thead>
+                  <tr>
+                      {% for ass in faculty.assessment.all %}
+                      <th>{{ ass.subject }}</th>
+                      <th>{{ ass.total_answer_sheets }}</th>
+                      <th>{{ ass.checked.count }}</th>
+                      <th>{{ ass.checked.all.last.checked }}</th>
+                          <th><a href="{% url 'faculty_assessment_edit' ass.id %}" class="btn btn-primary" style="color: white">Add Entry</a></th>
+
+                      {% endfor %}
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>      <!-- End of Main Content -->
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">

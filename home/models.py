@@ -22,16 +22,36 @@ class CustomUser(AbstractUser):
 
 
 class Subject(models.Model):
-    name = models.CharField(max_length=150, default=None, blank=False,)
+    name = models.CharField(max_length=150, default=None, blank=False, )
     code = models.BigIntegerField(primary_key=True, unique=True)
 
     def __str__(self):
         return self.name
 
 
+class PaperChecked(models.Model):
+    ans_sheet_no = models.CharField(max_length=10)
+    marks = models.SmallIntegerField(default=None)
+    checked = models.DateTimeField(auto_now_add=True)
+
+
+class Assessment(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    total_answer_sheets = models.SmallIntegerField(default=None)
+    first_ans_sheet = models.CharField(max_length=10, default=None)
+    last_ans_sheet = models.CharField(max_length=10, default=None)
+    last_edited = models.DateTimeField(auto_now_add=True)
+    checked = models.ManyToManyField(PaperChecked)
+
+    def __str__(self):
+        return f'{self.subject}'
+
+
+
 class Faculty(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     subjects = models.ManyToManyField(Subject)
+    assessment = models.ManyToManyField(Assessment)
 
     def __str__(self):
         return self.user.first_name
@@ -56,7 +76,3 @@ class AssessmentDetail(models.Model):
 
     def __str__(self):
         return self.subject.name
-
-
-
-

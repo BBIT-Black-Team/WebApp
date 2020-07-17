@@ -331,18 +331,21 @@
             </div>
             <hr>
                        <div class="card-body">
-                <a href="{% url 'assessment' %}">Assessmet Details </a><br>
+                <a href="{% url 'assessment' %}">Assessment Details </a><br>
                        </div>
               <hr>
                                    <div class="card-body">
                 <a href="{% url 'faculty_details' %}">Faculty Details </a><br>
                        </div>
+            <form method="post" class="align-self-center">
+                {% csrf_token %}
+            <button class="btn btn-lg btn-primary align-self-center mb-4" style="max-width: 300px">Configure Assessment</button>
+                </form>
+
             </div>
 
 
-
             </div>
-
      </div>        <!-- /.container-fluid -->
 
       </div>

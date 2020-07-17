@@ -317,58 +317,84 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid position-relative">
+        <div class="container-fluid">
+                    <div class="row justify-content-center">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Exam Block</h1>
-            <a href="{% url 'exam_block_add' %}" class="btn btn-primary btn-circle btn-md position-absolute" style="top: 0; right: 50px">
-                    <i class="fab fa fa-plus"></i>
-                  </a>
+            <div class="col-xl-10 col-lg-12 col-md-9" style="max-width: 600px">
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4" style="margin-top: 20px">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Exam Details</h6>
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+{#                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>#}
+                            <div class="col">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">{% if assessment %}Edit{% else %}Add New{% endif %} Assessment</h1>
+                                    </div>
+                                    <form class="user" method="post" id="login-form" novalidate >
+                                        {% csrf_token %}
+                                        <div class="form-group" style="text-align: -webkit-center">
+                     <select id="id_subjects" class="selectpicker" data-live-search="true" required  name="subject" >
+                            {% for sub in subjects %}
+                              <option {% if assessment.subject == sub %}selected{% endif %} value="{{ sub.code }}">{{ sub.name }}</option>
+                            {% endfor %}
+                        </select>
+                                    </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_no_of_blocks"></label><input type="number" class="form-control form-control-user"
+                                                                                 id="id_no_of_blocks" name="total_answer_sheets" placeholder="Total Answer Sheets" required value="{{ assessment.total_answer_sheets }}">
+                                            <small class="text-danger d-block error-msg" id="error_no_of_blocks"></small>
+
+                                        <div class="form-group">
+                                            <label for="id_no_of_blocks"></label><input type="number" class="form-control form-control-user"
+                                                                                 id="id_no_of_blocks" name="first_ans_sheet" placeholder="First Answer Sheets" required value="{{ assessment.first_ans_sheet }}">
+                                            <small class="text-danger d-block error-msg" id="error_no_of_blocks"></small>                                        </div>
+
+                                                                                    <div class="form-group">
+                                            <label for="id_no_of_blocks"></label><input type="number" class="form-control form-control-user"
+                                                                                 id="id_no_of_blocks" name="last_ans_sheet" placeholder="Last Answer Sheets" required value="{{ assessment.last_ans_sheet }}">
+                                            <small class="text-danger d-block error-msg" id="error_no_of_blocks"></small>
+                      <small class="text-danger error-msg" style="display: none" id="error_subjects">Select at least One Subject</small>
+
+                                        </div>
+{#                                        <div class="form-group">#}
+{#                                            <div class="custom-control custom-checkbox small">#}
+{#                                                <input type="checkbox" class="custom-control-input" id="customCheck">#}
+{#                                                <label class="custom-control-label" for="customCheck">Remember#}
+{#                                                    Me</label>#}
+{#                                            </div>#}
+{#                                        </div>#}
+
+                                        <input type="submit" class="btn btn-primary btn-user btn-block mt-4" value="Save">
+{#                                        <hr>#}
+{#                                        <a href="index.html" class="btn btn-google btn-user btn-block">#}
+{#                                            <i class="fab fa-google fa-fw"></i> Login with Google#}
+{#                                        </a>#}
+{#                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook#}
+{#                                        </a>#}
+                                    </form>
+                                    <hr>
+{#                                    <div class="text-center">#}
+{#                                        <a class="small" href="forgot-password.html">Forgot Password?</a>#}
+{#                                    </div>#}
+                                    <div class="text-center">
+                                        <a class="small" href="{% url 'assessment' %}">View all Assessments</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Sr.no</th>
-                      <th>Date of Exam</th>
-                      <th>No of Block</th>
-                      <th>Session</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-
-                      <th>Sr.no</th>
-                      <th>Date of Exam</th>
-                      <th>No of Block</th>
-                      <th>Session</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                  {% for exam in exam_block %}
-
-                    <tr>
-                      <td><a href="{% url 'exam_block_edit' exam.id %}">{{ forloop.counter }}</a></td>
-                      <td><a href="{% url 'exam_block_edit' exam.id %}">{{ exam.date_of_exam }}</a></td>
-                      <td><a href="{% url 'exam_block_edit' exam.id %}">{{ exam.no_of_blocks }}</a></td>
-                      <td><a href="{% url 'exam_block_edit' exam.id %}">{{ exam.session }}</a></td>
-                    </tr>
-
-                  {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
 
         </div>
-          <!-- /.container-fluid -->
+
+        </div>
+        <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
@@ -418,4 +444,11 @@
 
 {% block add_xtra_js %}
     <script src="{% static 'home/js/home.js' %}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+{% endblock %}
+
+
+{% block add_xtra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 {% endblock %}
